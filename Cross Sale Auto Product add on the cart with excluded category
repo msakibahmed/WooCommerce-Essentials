@@ -69,3 +69,71 @@ function add_product_to_cart()
         }
     }
 }
+
+
+
+
+
+
+
+
+
+Option 2
+
+
+/**
+ * Automatically add product to cart on visit
+ */
+add_action('woocommerce_add_to_cart', 'sa_add_product_to_cart');
+
+function sa_add_product_to_cart() {
+    if ( ! is_admin() && !is_cart() && !is_checkout() ) {
+        $product_id = 49459; 
+        $found = false;
+        $items_count = 0;
+        $excluded_sub_item = 176194;
+        $no_offer_item = 0;
+        
+        // Check if product already in cart
+        if ( sizeof( WC()->cart->get_cart() ) > 0 ) {
+            $product_category_id = 64;
+            foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
+                $_product = $values['data'];
+                $product_cats_ids = wc_get_product_term_ids( $_product->get_id(), 'product_cat' );
+                if ( $_product->get_id() == $product_id ){
+                    $product_key = $cart_item_key;
+                    $product_qty = $cart_item['quantity'];
+                    $found = true;
+                } elseif( in_array( $product_category_id, $product_cats_ids ) ){
+                    $no_offer_item = 1; 
+                } elseif ( $_product->get_id() != $excluded_sub_item ) {
+                    $items_count += $values['quantity'];
+                }
+
+                $product_category_id 	= 1299; // 6166
+                $product_cats_ids 	= wc_get_product_term_ids( $_product->get_id(), 'product_cat' );
+                if(in_array( $product_category_id, $product_cats_ids ) ){
+                    $no_offer_item = 1; 
+                    $items_count = $items_count - $no_offer_item;
+                    //return;
+                }
+
+            }
+            
+            // Calculate quantity to add
+            $quantity_to_add = max( 1, $items_count );
+            
+            // If product not found, add it
+            if ( ! $found && $no_offer_item != 1 ){
+                WC()->cart->add_to_cart( $product_id, $quantity_to_add );
+            }
+            elseif ( $no_offer_item != 1 ){
+                WC()->cart->set_quantity( $product_key, $quantity_to_add );
+            }
+        } else {
+            // If no products in cart, add it
+            WC()->cart->add_to_cart( $product_id );
+        }
+    }
+}
+
