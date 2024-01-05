@@ -1,3 +1,5 @@
+<?php
+
 //Sakib
 add_filter( 'woocommerce_add_to_cart_redirect', 'woo_redirect_checkout' );
 function woo_redirect_checkout() {
