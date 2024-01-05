@@ -1,4 +1,4 @@
-
+<?php
 function action_woocommerce_removed_coupon( $coupon_code ) { 
 	if($coupon_code == 'skill99' OR $coupon_code == 'SKILL99') {
  
