@@ -1,3 +1,4 @@
+<?php
 //Set Stripe as the default selection on the checkout page.
 
 add_action( 'template_redirect', 'define_default_payment_gateway' );
