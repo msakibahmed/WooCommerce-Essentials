@@ -1,3 +1,4 @@
+<?php
 DELETE FROM `wp_usermeta`
 WHERE meta_key IN ( '_stripe_customer_id', '_stripe_source_id', '_stripe_card_id' );
 DELETE tokenmeta FROM `wp_woocommerce_payment_tokenmeta` tokenmeta
