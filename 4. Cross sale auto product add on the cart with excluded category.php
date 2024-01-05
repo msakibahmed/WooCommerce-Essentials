@@ -1,3 +1,5 @@
+<?php
+
 /**
  * Automatically add product to cart on visit
  */
