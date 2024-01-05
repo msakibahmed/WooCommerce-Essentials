@@ -1,3 +1,5 @@
+<?php
+
 add_action('woocommerce_cart_coupon', 'themeprefix_back_to_store');
     // add_action( 'woocommerce_cart_actions', 'themeprefix_back_to_store' );
     function themeprefix_back_to_store() { ?>
