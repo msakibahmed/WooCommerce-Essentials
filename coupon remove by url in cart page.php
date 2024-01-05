@@ -1,5 +1,4 @@
 <?php
-
 add_action( 'woocommerce_after_cart_table', 'add_remove_coupon_button' );
 function add_remove_coupon_button() {
     if ( WC()->cart->has_discount( 'JAN6' ) OR WC()->cart->has_discount( 'JAN4' )) {
